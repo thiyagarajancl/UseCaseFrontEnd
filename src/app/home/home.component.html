@@ -1,0 +1,82 @@
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header" style="text-align:center"><b>Stock Market</b></div>
+        <div class="card-body">
+            <form>
+                <div class="container">
+                    <div class="row mt-5">
+                        <div class="form-group col-sm-6">
+                            <label for="company">Company Name</label>
+                            <select *ngIf="allCompany" class="form-control" (change)="onselectCompany($event)">
+                                <option value="0">--Select--</option>
+                                <option *ngFor="let company of allCompany" [value]="company.companyCode">
+                                    {{company.companyName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="form-group col-sm-6">
+                            <label>From </label>
+                            <input class="form-control" placeholder="yyyy-mm-dd" name="fromdp" (ngModel)="fromDate" 
+                            ngbDatepicker #fromdate="ngbDatepicker" (dateSelect)="triggerFromDateFilter($event)">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar" (click)="fromdate.toggle()" type="button">Click</button>
+                            </div>
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label>To </label>
+                            <input class="form-control" placeholder="yyyy-mm-dd" name="todp" (ngModel)="toDate" 
+                            ngbDatepicker #todate="ngbDatepicker" (dateSelect)="triggerToDateFilter($event)">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar" (click)="todate.toggle()" type="button">Click</button>
+                            </div>
+                          </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <button class="btn btn-info" type="submit" (click)="getStockData()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="container" style="margin-top: 70px;">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let stock of allStock">
+                    <td>{{stock.stockPrice}}</td>
+                    <td>{{stock.stockDate | date : 'dd-mm-yyyy'}}</td>
+                    <td>{{stock.stockDate | date : 'HH:mm'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <tr>
+                <td><b>Minimum</b></td>
+                <td>{{obj.Minimum}}</td>
+            </tr>
+            <tr>
+                <td><b>Maximum</b></td>
+                <td>{{obj.Maximum}}</td>
+            </tr>
+            <tr>
+                <td><b>Average</b></td>
+                <td>{{obj.Average}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
